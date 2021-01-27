@@ -1,0 +1,316 @@
+--1. 시퀀스 삭제 및 생성
+
+DROP SEQUENCE SC_B_IDX;
+DROP SEQUENCE SC_RM_IDX;
+DROP SEQUENCE SC_RB_IDX;
+DROP SEQUENCE SC_RH_IDX;
+
+create sequence SC_B_IDX
+START WITH 100000;
+
+create sequence SC_RM_IDX
+START WITH 100000;
+
+create sequence SC_RB_IDX
+START WITH 100000;
+
+create sequence SC_RH_IDX
+START WITH 100000;
+
+create sequence SC_BOARD_IDX
+START WITH 100000;
+
+CREATE SEQUENCE SC_FILE_IDX
+START WITH 100000;
+
+CREATE SEQUENCE SC_BC_IDX
+START WITH 100000;
+
+SELECT * FROM USER_SEQUENCES;
+
+--2. 회원더미데이터 입력
+INSERT INTO TB_MEMBER VALUES('UCLASS','123ABC!@3','aaa@aaa.com','ME00','010-0000-0000',SYSDATE, sysdate, 0);
+
+--코드정보 입력
+ insert into TB_CODE(upper_cd,code,info) values('','ME','회원정보'); 
+ insert into TB_CODE(upper_cd,code,info) values('','BC','도서분류'); 
+ insert into TB_CODE(upper_cd,code,info) values('','RE','대출상태'); 
+ insert into TB_CODE(upper_cd,code,info) values('','RS','도서예약'); 
+ insert into TB_CODE(upper_cd,code,info) values('ME','ME00','일반'); 
+ insert into TB_CODE(upper_cd,code,info) values('ME','ME01','성실'); 
+ insert into TB_CODE(upper_cd,code,info) values('ME','ME02','우수'); 
+ insert into TB_CODE(upper_cd,code,info) values('ME','ME03','vip'); 
+ insert into TB_CODE(upper_cd,code,info) values('BC','BC00','총류'); 
+ insert into TB_CODE(upper_cd,code,info) values('BC','BC01','철학'); 
+ insert into TB_CODE(upper_cd,code,info) values('BC','BC02','종교'); 
+ insert into TB_CODE(upper_cd,code,info) values('BC','BC03','사회과학'); 
+ insert into TB_CODE(upper_cd,code,info) values('BC','BC04','자연과학'); 
+ insert into TB_CODE(upper_cd,code,info) values('BC','BC05','기술과학'); 
+ insert into TB_CODE(upper_cd,code,info) values('BC','BC06','예술'); 
+ insert into TB_CODE(upper_cd,code,info) values('BC','BC07','언어'); 
+ insert into TB_CODE(upper_cd,code,info) values('BC','BC08','문학'); 
+ insert into TB_CODE(upper_cd,code,info) values('BC','BC09','역사'); 
+ insert into TB_CODE(upper_cd,code,info) values('RE','RE00','대출'); 
+ insert into TB_CODE(upper_cd,code,info) values('RE','RE01','연장'); 
+ insert into TB_CODE(upper_cd,code,info) values('RE','RE02','연체'); 
+ insert into TB_CODE(upper_cd,code,info) values('RE','RE03','반납'); 
+ insert into TB_CODE(upper_cd,code,info) values('RS','RS00','예약'); 
+ insert into TB_CODE(upper_cd,code,info) values('RS','RS01','예약도서대출'); 
+ insert into TB_CODE(upper_cd,code,info) values('RS','RS02','예약취소'); 
+
+  
+--3. 도서 더미데이터 입력
+INSERT INTO tb_book
+(B_IDX,category,title,author,REG_DATE,BOOK_AMT,RENT_CNT)
+VALUES(sc_b_idx.NEXTVAL,'BC00','비행운','김애란',SYSDATE,1,0);
+
+INSERT INTO tb_book
+(B_IDX,category,title,author,REG_DATE,BOOK_AMT,RENT_CNT)
+VALUES(sc_b_idx.NEXTVAL,'BC00','남한산성','김훈',SYSDATE,1,0);
+
+INSERT INTO tb_book
+(B_IDX,category,title,author,REG_DATE,BOOK_AMT,RENT_CNT)
+VALUES(sc_b_idx.NEXTVAL,'BC00','사랑의기술','에리히프롬',SYSDATE,1,0);
+
+INSERT INTO tb_book
+(B_IDX,category,title,author,REG_DATE,BOOK_AMT,RENT_CNT)
+VALUES(sc_b_idx.NEXTVAL,'BC00','달콤한나의도시','정이현',SYSDATE,1,0);
+
+--4. RENT_MASTER 테이블에 더미데이터 추가
+insert into tb_rent_master values(sc_rm_idx.nextval,'UCLASS',SYSDATE,0,'비행운',1);
+
+  SELECT * FROM tb_rent_master;
+  SELECT * FROM TB_BOOK;
+  SELECT * FROM TB_RENT_BOOK;
+  SELECT * FROM TB_MEMBER;
+  SELECT * FROM TB_RENT_HISTORY;  
+
+--5. 대출정보추가 프로시저 생성
+create or replace PROCEDURE SP_RENT_INSERT(
+	--대출할 도서번호
+	AB_IDX TB_BOOK.B_IDX%TYPE,
+	--return으로 돌려줄 상태값 
+	RETURN_RM_IDX OUT TB_RENT_MASTER.RM_IDX%TYPE
+)
+IS
+	PRM_IDX TB_RENT_MASTER.RM_IDX%TYPE;
+	PUSER_ID TB_MEMBER.user_ID%TYPE;
+BEGIN
+
+    PRM_IDX := SC_RM_IDX.CURRVAL;
+    SELECT USER_ID INTO PUSER_ID FROM TB_RENT_MASTER WHERE RM_IDX = PRM_IDX;
+    --대출가능일자 수정
+    UPDATE TB_MEMBER SET rentable_DATE = SYSDATE
+    WHERE user_ID = PUSER_ID;
+
+    --RENT_BOOK 테이블 입력
+    INSERT INTO TB_RENT_BOOK
+    VALUES(SC_RB_IDX.NEXTVAL,SC_RM_IDX.CURRVAL    
+    ,AB_IDX, PUSER_ID, SYSDATE,'RE00'
+    --char를 DATE로 바꿔줄때 형식을 지정하지 않으면 운영체제가 바뀔 경우
+    --즉 배포환경에서 에러가 발생하게 된다.
+    --운영체제마다 기본값으로 지정되는 형식이 다르기 때문.
+    ,TO_DATE(TO_CHAR(SYSDATE+7,'YYYY/MM/DD'),'YYYY/MM/DD'),0);
+
+    --RENT_HISTORY 테이블 입력
+    INSERT INTO TB_RENT_HISTORY
+    VALUES(SC_RH_IDX.NEXTVAL, SC_RM_IDX.CURRVAL
+    , SC_RB_IDX.CURRVAL,AB_IDX,SYSDATE,'RE00');
+
+    --BOOK 테이블 대출 중 상태로 변경
+    UPDATE TB_BOOK B SET BOOK_AMT = BOOK_AMT - 1, rent_Cnt=rent_Cnt +1
+    WHERE b_Idx = AB_IDX;
+
+    RETURN_RM_IDX := PRM_IDX;	
+END;
+/
+
+
+--프로시저 테스트
+DECLARE
+    RETURN_RM_IDX TB_RENT_MASTER.RM_IDX%TYPE;
+BEGIN
+    SP_RENT_INSERT(100000, RETURN_RM_IDX);
+END;  
+
+  SELECT * FROM tb_rent_master;
+  SELECT * FROM TB_BOOK;
+  SELECT * FROM TB_RENT_BOOK;
+  SELECT * FROM TB_MEMBER;
+  SELECT * FROM TB_RENT_HISTORY; 
+
+--6. 대출연장 프로시저 생성
+create or replace PROCEDURE SP_RENT_EXTEND
+(
+--매개변수로 넘어온 대출번호
+ARM_IDX IN tb_rent_master.rm_Idx%type,
+--매개변수로 넘어온 대출도서번호
+ARB_IDX IN TB_RENT_BOOK.rb_Idx%type,
+--return으로 돌려줄 상태값 
+RETURN_RB_IDX OUT TB_RENT_BOOK.RB_IDX%TYPE
+)
+IS
+--도서번호 변수 선언
+PB_IDX tb_book.b_Idx%TYPE;
+
+BEGIN
+    --도서번호 변수에 대출 중인 도서의 도서번호를 초기화
+    SELECT 
+	B_IDX INTO PB_IDX 
+	FROM  TB_RENT_BOOK
+    	WHERE RB_IDX = ARB_IDX;                  
+
+   UPDATE 
+	TB_RENT_BOOK
+	SET STATE = 'RE01'
+	,RETURN_DATE = RETURN_DATE + 7
+	,EXTENTION_CNT = EXTENTION_CNT + 1
+	WHERE RB_IDX = ARB_IDX;   
+
+     --히스토리 테이블에 데이터 추가
+    INSERT INTO TB_RENT_HISTORY
+    VALUES(SC_RH_IDX.NEXTVAL, ARM_IDX, ARB_IDX, PB_IDX
+    ,SYSDATE, 'RE01');
+
+    RETURN_RB_IDX := ARB_IDX;
+END;
+/
+
+--프로시저 테스트
+--연장 테스트
+DECLARE
+    RETURN_RB_IDX TB_RENT_BOOK.RB_IDX%TYPE;
+BEGIN
+    SP_RENT_EXTEND(100000, 100000, RETURN_RB_IDX);
+    DBMS_OUTPUT.PUT_LINE(RETURN_RB_IDX);
+END;
+/
+
+  SELECT * FROM tb_rent_master;
+  SELECT * FROM TB_BOOK;
+  SELECT * FROM TB_RENT_BOOK;
+  SELECT * FROM TB_MEMBER;
+  SELECT * FROM TB_RENT_HISTORY; 
+
+--대출반납 프로시저 생성
+create or replace PROCEDURE SP_RENT_RETURN
+(
+--매개변수로 넘어온 대출번호
+ARM_IDX IN tb_rent_master.rm_Idx%type,
+--매개변수로 넘어온 대출도서번호
+ARB_IDX IN TB_RENT_BOOK.rb_Idx%type,
+--매개변수로 넘어온 회원아이디
+AUSER_ID IN TB_MEMBER.USER_ID%type,
+--return으로 돌려줄 상태값 
+RETURN_RB_IDX OUT TB_RENT_BOOK.rb_Idx%type
+)
+IS
+--대출 중인 도서 권수
+PRENT_CNT number;
+--도서번호
+PB_IDX tb_book.b_Idx%TYPE;
+--반납예정일
+PRETURN_DATE tb_rent_book.return_DATE%TYPE;
+
+BEGIN
+    --도서번호 변수, 반납일 변수에 대출 중인 도서의 도서번호, 반납일을 초기화
+    SELECT B_IDX, RETURN_DATE INTO PB_IDX, PRETURN_DATE 
+	FROM TB_RENT_BOOK WHERE RB_IDX = ARB_IDX;
+
+    --반납된 도서 대출가능으로 변경
+    UPDATE TB_BOOK 
+    SET BOOK_AMT = BOOK_AMT + 1 
+    WHERE B_IDX = PB_IDX;
+
+    --연체일 경우 
+    --대여가능날짜 + 연체일수*4 한 값을 TB_MEMBER의 RENTABLEDATE에 넣어줌 
+    --char를 DATE로 바꿔줄때 형식을 지정하지 않으면 운영체제가 바뀔 경우
+    --즉 배포환경에서 에러가 발생하게 된다.
+    --운영체제마다 기본값으로 지정되는 형식이 다르기 때문.
+    IF PRETURN_DATE < TO_DATE(TO_CHAR(SYSDATE,'YYYY/MM/DD'),'YYYY/MM/DD')
+    THEN     
+	 UPDATE TB_MEMBER 
+	    SET RENTABLE_DATE = 
+        --char를 DATE로 바꿔줄때 형식을 지정하지 않으면 운영체제가 바뀔 경우
+        --즉 배포환경에서 에러가 발생하게 된다.
+        --운영체제마다 기본값으로 지정되는 형식이 다르기 때문.
+	    RENTABLE_DATE + (TO_DATE(TO_CHAR(SYSDATE,'YYYY/MM/DD'),'YYYY/MM/DD') - PRETURN_DATE) * 4
+	    where 
+	    user_Id = AUSER_ID;
+
+    END IF;   
+
+    --대출상태, 반납일 수정
+   	UPDATE TB_RENT_BOOK 
+    SET STATE = 'RE03', RETURN_DATE = SYSDATE
+    WHERE RB_IDX = ARB_IDX;
+
+	--tb_rent_master테이블에서 모든 도서 반납여부 확인후 isReturn 값 변경
+    select count(*) into PRENT_CNT from tb_rent_book           
+    where rm_Idx = ARM_IDX AND STATE != 'RE03';
+
+    IF PRENT_CNT = 0
+    THEN 
+    	UPDATE TB_RENT_MASTER SET IS_RETURN = 1
+   		WHERE RM_IDX = ARM_IDX;
+    END IF;
+
+     --히스토리 테이블에 데이터 추가
+    INSERT INTO TB_RENT_HISTORY
+    VALUES(SC_RH_IDX.NEXTVAL, ARM_IDX, ARB_IDX, PB_IDX
+    ,SYSDATE, 'RE03');
+
+    --변경된 상태값을 리턴할 변수에 초기화
+    --프로시저가 성공적으로 마무리되어야지만 값을 담는다.
+    RETURN_RB_IDX := ARB_IDX;
+
+  END;
+  /
+
+--프로시저 테스트
+--연체 테스트를 위한 반납일자 수정
+UPDATE TB_RENT_BOOK
+SET RETURN_DATE = SYSDATE - 1
+WHERE RB_IDX = 100000
+
+--연체/반납 테스트
+DECLARE
+    RETURN_STATE tb_book.b_Idx%TYPE;
+BEGIN
+    SP_RENT_RETURN (100000, 100000, 'UCLASS', RETURN_STATE);
+    DBMS_OUTPUT.PUT_LINE(RETURN_STATE);
+END;
+/
+  
+  SELECT * FROM tb_rent_master;
+  SELECT * FROM TB_BOOK;
+  SELECT * FROM TB_RENT_BOOK;
+  SELECT * FROM TB_MEMBER;
+  SELECT * FROM TB_RENT_HISTORY;  
+
+--7. 인기순위를 산정해서 반환해주는 VIEW
+--RANK()OVER(), ROWNUM 둘 다 써보기
+--RANK()OVER()
+CREATE OR REPLACE VIEW V_RANK_BOOK
+AS 
+SELECT * FROM
+(SELECT RANK()OVER(ORDER BY rentCnt DESC) RANKING, 
+TB_BOOK.*
+FROM TB_BOOK)
+WHERE ROWNUM < 4;
+
+--ROWNUM
+--SELECT * FROM
+--(SELECT * FROM TB_BOOK ORDER BY rentCnt DESC)
+--WHERE ROWNUM < 4;
+
+SELECT * FROM TB_MEMBER;
+SELECT * FROM TB_BOOK;
+SELECT * FROM TB_RENT_MASTER;
+SELECT * FROM TB_RENT_BOOK;
+SELECT * FROM TB_RENT_HISTORY;
+SELECT * FROM V_RANK_BOOK;
+
+
+
+
