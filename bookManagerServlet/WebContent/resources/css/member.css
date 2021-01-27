@@ -1,0 +1,125 @@
+	/* Login */
+	body{
+		background-image:url('../image/login_cover.jpg');
+		background-size:cover;
+		display: flex;
+		justify-content:center;
+		flex-direction: row;
+	}
+	
+	.box_member{
+		align-self:center;
+		width:40%;
+	}
+	
+	.login{
+		display:flex;
+		flex-direction:column;
+		font-size:2vw;
+		padding:10% 0 10% 0;
+		background-color:white;
+		border-radius:30px;
+	}
+	
+	.login-info{
+		width:70%;
+		align-self: center;
+		margin:5% 0 5% 0;
+		text-align: left;
+	}
+
+	.login-text{
+	    border-bottom: 1px solid #c0c0c0;
+	    width:100%;
+	    font-size:1vw;
+	}
+	
+	.login button{
+		width:70%;
+		align-self: center;
+		padding:3% 0 3% 0;
+		border-radius:10px;
+		margin:3% 0 1% 0;
+		color:white;
+		font-size:1.5vw;
+	}
+	
+	.login .btn_login{
+		background-color:#ffc300b0;
+	}
+	
+	.login .btn_signup{
+		background-color:#008eff;
+	}
+	
+	.login .checkMsg{
+		display:block;
+		background-color:red;
+		font-size:1vw;
+		color:white;
+	}
+	
+	/* 회원가입 */
+	.frm_join{
+		display:flex;
+		flex-direction:column;
+		justify-content:space-around;
+		font-size:2vw;
+		padding : 3% 0 3% 0;
+		background-color:white;
+		border-radius:30px;
+	}
+	
+	.frm_join span{
+		display:block;
+		font-size:2vw;
+	}
+	
+	.frm_join span[id=id-check-msg]{
+		font-size:1vw;
+	}
+	
+	.join-info{
+		width:80%;
+		left:10%;
+		margin:3% 0 3% 0;
+		font-size:1.2vw;
+		text-align: left;
+	}
+	
+	.join-info p{
+		display:inline-block;
+		width:35%;
+		left:2%;
+		font-size:1.5vw;
+		text-align: left;
+	}
+	
+	.btn-id-check{
+		width:25%;
+		left:45%;
+		font-size:1.5vw;
+		border-radius:30px;
+		background-color:red;
+		color:white;
+	}
+	
+	.join-info input{
+		display:block;
+		width:85%;
+		left:2%;
+	    border-bottom: 1px solid #c0c0c0;
+	    font-size:2vw;
+	}
+	
+	.btn-join-submit{
+		align-self:center;
+		width:60%;
+		background-color:blue;
+		color:white;
+		border-radius:6px;
+		font-size:2vw;
+	}
+	
+	
+	

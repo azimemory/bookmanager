@@ -1,0 +1,131 @@
+	.content{
+		margin-top: 10%;	
+	}
+	
+	/*  bookSearch.jsp CSS   */
+	.section_book{
+		align-self:center;
+		width:80%;
+		min-height: 100%;
+	}
+
+	.box_menu{
+		padding: 2% 0 2% 0;
+		margin-bottom:3%;
+		font-size:1.3vw;
+		font-weight:bold;
+		background-color:lightblue;
+		border-radius: 30px;
+	}
+	
+	.box_menu > div{
+		margin-top: 2%;
+	}
+	
+	.box_menu span{
+		display:inline-block;
+		width:20%;
+		text-align: left;
+		vertical-align: middle;
+	}
+	
+	.box_menu input{
+		width:30%;
+		zoom: 2.0;
+	}
+	
+	.btn-search{
+		align-self:center;
+		width:33%;
+		background-color:#ffc300b0;
+		border-radius:6px;
+		font-size:1.2vw;
+	}
+	
+	.box_book{
+		display: flex;
+		flex-direction: column;
+	}
+
+	.line_book{
+		display:flex;
+		margin-top: 5%;
+		margin-bottom: 5%;
+	}
+	
+	.book-item{		
+		width:20%;
+	}
+	
+	.tit_book{
+		margin-top:10%;
+		font-size:1vw;
+		white-space:nowrap;
+		text-overflow: ellipsis;
+	}
+	
+	
+	/*  bookDetail.jsp CSS   */
+	.book-detail{
+		display:flex;
+		justify-content:space-around;
+	}
+
+	.img-book-detail{
+		width:20%;
+		margin-top: 5%;
+	}
+	
+	.wrap_book-info{
+		display: flex;
+		width:60%;
+		flex-direction: column;
+	}
+	
+	.book-info{
+		display: flex;
+		justify-content:space-around;
+		font-size:1.5vw;
+		margin: 2% 0 2% 0;
+	}
+	
+	.book-info .info-col{
+		width:20%;
+		text-align:right;
+		font-weight:bold;
+		color:graytext;
+	}
+	
+	.book-info .info-val{
+		width:30%;
+		text-align:left;
+		font-size:1.1vw;
+	}
+	
+	.btn_use{
+		align-self:flex-end;
+		padding: 1% 0 1% 0;
+		margin: 0 0 3% 0;
+		width:30%;
+		font-size:1.5vw;
+		color:white;
+		border-radius:30px;
+	}
+	
+	.btn_rent{
+		background-color:blue;
+		margin-top: 10%;
+	}	
+	
+	.btn_cart{
+		background-color:green;
+	}	
+	
+	.btn_rent-next{
+		background-color:gray;
+	}
+	
+	.btn_reserve{
+		background-color:green;
+	}	
+	
