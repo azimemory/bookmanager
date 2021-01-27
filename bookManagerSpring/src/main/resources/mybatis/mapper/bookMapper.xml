@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper	namespace="BOOK">
+
+	<select id="selectBookList" resultType="BOOK">
+		select 
+		* 
+		from tb_book 
+		where 
+		title like '%'||#{keyword}||'%' or author like '%'||#{keyword}||'%'
+	</select>
+	
+	<select id="selectBook" resultType="BOOK">
+		select 
+		* 
+		from tb_book 
+		where b_idx=#{bIdx}
+	</select>
+	
+	<select id="selectBookAmt" resultType="int">
+		select Book_Amt		
+		from tb_book 
+		where b_idx=#{bIdx}
+	</select>
+	
+	<select id="selectInnerSearch" resultType="BOOK">
+   		select 
+   			title, b_Idx, author, rent_cnt, book_Amt, isbn 
+		from tb_book  			
+  		where b_Idx in
+		<foreach collection="bIdxs" item='bIdx' index='i' open="(" close=")" separator=","> 
+			#{bIdx} 
+		</foreach>
+  		<if test="keyword != '' ">
+			<!-- like절 사용 방법 -->
+	 		and (title like '%'|| #{keyword} ||'%' or author like '%'|| #{keyword} ||'%')
+		</if>
+		order by #{orderBy} desc
+    </select>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+</mapper>

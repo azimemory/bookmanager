@@ -1,2 +1,0 @@
-# bookmanager
-bookmanager toy project

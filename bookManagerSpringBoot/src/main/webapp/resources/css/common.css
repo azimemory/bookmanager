@@ -1,0 +1,161 @@
+/*  
+	A. CSS 네이밍 규칙(정하기 나름)
+	1. 시작이름은 영문 대문자, 숫자, 특수문자로 시작할 수 없다.(파일 및 폴더 제외)
+	2. 네이밍의 조합은 '형태 의미 순서_상태'을 기본 순서로 사용한다.
+	3. class : -     css Naming 용도
+	   id : _		 JavaScript 용도
+	   name : camel  Java용도
+ 
+	B. reset css
+	개발의 편의를 위해 HTML의 기본속성을 변경하는 작업
+*/
+	html,body{  	
+		display:flex;
+		flex-direction:column;
+		min-height: 100vh;
+		margin:0%;
+		padding:0;
+	}
+
+	h1, h2, h3, h4, h5, h6, dl, dt, dd, ul, li, ol, th, td, p, blockquote,form,fieldset, legend, input 
+	{
+   		margin: 0;
+    	padding: 0;
+		border:none;
+	}
+	
+	body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset
+	,legend,textarea,p,blockquote,th,td,input,select,textarea,button,nav,section,footer,aside 
+	{margin:0;padding:0; position:relative;}
+	fieldset,img {border:0 none}
+	dl,ul,ol,menu,li {list-style:none}
+	blockquote, q {quotes: none}
+	blockquote:before, blockquote:after,q:before, q:after {content:'';content:none}
+	input,select,textarea,button {vertical-align:middle}
+	button {border:0 none;background-color:transparent;cursor:pointer; outline: 0; }
+	a {color:#333;text-decoration:none;}
+	a:active, a:hover {text-decoration:none;}
+	address,caption,cite,code,dfn,em,var {font-style:normal;font-weight:normal}
+		
+	div{		
+		color: black;		
+		text-align: center;
+		box-sizing: border-box;
+		
+		/* 	
+			box-shadow: 
+				1px 0 0 0 grey, 
+				0 1px 0 0 grey, 
+				1px 1px 0 0 grey,
+				1px 0 0 0 grey inset, 
+				0 1px 0 0 grey inset;	  
+		*/
+	}
+	
+	/*
+		모든 페이지에 공통으로 들어가는 요소(top, float-div)들에 대한
+		CSS적용
+	 */
+	 
+	.header-section{
+		position:fixed;
+		width:100%;	
+		z-index:999;
+	}
+	
+	.top{	
+		display:flex;
+		justify-content:space-around;
+		align-items:center;
+		padding: 1% 0 1% 0;
+		background-color: #ffffff;
+		font-size: 2vmin;	
+	}		
+	
+	.top > .top-logo-text{	
+		width:15%;
+		font-size: 3vmin;
+		text-align:center;
+	}
+	
+	.top > .frm_top-search{
+		width:65%;
+	}
+	
+	.top > .frm_top-search > .input-top-search{
+		width:70%;
+		font-size: 2vmin;
+		border-bottom:outset;
+	}
+	
+	.top > .frm_top-search > .btn-top-search{
+		width:5%;
+		font-size: 2vmin;
+	}
+	
+	.top > .top-user-join{	
+		width: 12%;
+		font-size: 2vmin;
+	}
+	
+	.top > .top-user-login{	
+		width: 12%;
+		font-size: 2vmin;
+	}		
+	
+	.wrap_float-div{
+		position:fixed; 
+		width:6%; 
+		padding-top:20%;
+		left:2%; 
+		top:35%; 
+		z-index: 500; 
+	}
+	
+	.float-div{
+		position:absolute; 
+		width:100%; 
+		height:100%;	
+		top:0%;
+	}
+	
+	.float-div span{
+		width:100%;
+		height:10%;
+		font-size: 1.5vw;
+	}
+	
+	.float-div .d1{
+		width:100%;
+		padding: 20% 0 20% 0;
+	}
+	
+	.float-div .d1 i{
+		font-size:2vmin;
+		display:block;
+		height:60%;
+	}
+
+	.float-div .d1 span{
+		display:block;
+		height:30%;
+		font-size:1vw;
+	}
+	
+	.float-div li:hover {
+		background-color:lightblue;
+	}
+	
+	.content{
+		flex:1;
+		display:flex;
+		flex-direction:column;
+		margin-top:5%;
+	}
+	
+	.bottom{
+		background-color: lightgrey;
+		padding-top:15%;
+		color: white;
+	}
+	

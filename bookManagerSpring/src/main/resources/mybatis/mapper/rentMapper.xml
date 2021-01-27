@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper	namespace="RENT">
+	<!-- javaType : resultMap이 Object map일 경우 타입을  mybatis가 정하게 된다. ex) number -> BigDecimal
+		이때 javaType을 명시해두면 원하는 타입으로 값을 받을 수 있다.
+	  -->
+	<resultMap type="map" id="rentData">
+		<result column="rm_Idx" property="rmIdx" javaType="int"/>
+		<result column="rb_Idx" property="rbIdx" javaType="int"/>
+		<result column="Info" property="info"/>
+		<result column="title" property="title"/>
+		<result column="author" property="author"/>
+		<result column="isbn" property="isbn" javaType="String"/>
+		<result column="reg_date" property="regDate"/>
+		<result column="return_date" property="returnDate"/>
+		<result column="EXTENTION_CNT" property="extentionCnt" javaType="int"/>
+		<result column="state" property="state"/>
+	</resultMap>
+
+	<select id="totalCountInRent" resultType="int">
+		select count(*) 
+		from tb_rent_master 
+		where user_id = #{userId}
+	</select>
+	
+	<select id="selectRentinfo" resultType="RENT">
+		select * from  
+		(select rownum rnum, a.* from(   
+		    select *    
+		    from tb_rent_master rm    
+		    where user_id = #{userId}   
+		    order by rm_idx desc) a  
+		) where rnum between #{paging.start} and #{paging.end}
+	</select>
+	
+	<select id="selectRentbookinfo" resultMap="rentData">
+		 select 
+		  rb.rm_Idx, rb.rb_Idx, b.title, b.author, b.isbn,
+		  rb.reg_date, rb.return_date, rb.EXTENTION_CNT, rb.state 
+		  from tb_rent_book rb
+		  inner join tb_book b using(b_idx) 
+		  where
+	  		<if test="searchType == 'rmIdx'">
+	  			rb.rm_Idx = #{rmIdx}
+	  		</if>
+	  		<if test="searchType == 'rbIdx'">
+	  			rb.rb_Idx = #{rbIdx}
+	  		</if>
+	</select>
+	
+	<select id="selectLateCnt" resultType = "int">
+		select count(*) from tb_rent_book where user_id = #{userId} and state = 'RE02'
+	</select>
+	
+	<insert id="insertRentInfo">
+		insert into tb_rent_master 
+		 (rm_idx,user_id,title,rent_book_cnt)
+		  values(SC_RM_IDX.nextval,#{userId},#{title},#{rentBookCnt})
+	</insert>
+	
+	<!-- 
+		statementType : 사용할 statement를 선택할 수 있다.
+		기본값은 preparedStatement 이다.
+		프로시저를 호출하기 위해서는 CallableStatement를 사용해야 한다.
+	  -->
+	<insert id="insertRentBookInfo" parameterType="RENT" statementType="CALLABLE">
+		{call SP_RENT_INSERT(#{rentBook.bIdx, mode=IN},#{rmIdx, mode=OUT, jdbcType=NUMERIC, javaType=int})}
+	</insert>
+	
+	<update id="updateReturnRentBook" parameterType="RENT" statementType="CALLABLE">
+		{call SP_RENT_RETURN(#{rmIdx, mode=IN}
+					,#{rbIdx, mode=IN}
+					,#{userId, mode=IN}
+					,#{rmIdx, mode=OUT, jdbcType=NUMERIC, javaType=int})}
+	</update>
+	
+	<update id="updateExtendRentState" parameterType="RENT" statementType="CALLABLE">
+		{call SP_RENT_EXTEND(#{rmIdx, mode=IN},#{rbIdx, mode=IN},#{rmIdx, mode=OUT, jdbcType=NUMERIC, javaType=int})}
+	</update>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+</mapper>

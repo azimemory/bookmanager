@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper	namespace="CART">
+
+	<resultMap type="Map" id="cartMap">
+		<result column="title" property="title"/>
+		<result column="author" property="author"/>
+		<result column="isbn" property="isbn" javaType="String"/>
+		<result column="book_Amt" property="bookAmt" javaType="int"/>
+		<result column="bc_idx" property="bcIdx" javaType="String"/>
+		<result column="b_idx" property="bIdx" javaType="String"/>
+	</resultMap>
+
+	<select id="selectCart" resultMap="cartMap">
+		select   
+			b.title, b.author, b.isbn, b.book_Amt, bc.bc_idx, b_idx   
+		from   
+		 	tb_book b   
+			inner join tb_book_cart bc   
+		 	using(b_idx)   
+		where bc.user_id = #{userId} or bc.session_id = #{sessionId} 
+	</select>
+	
+	<insert id="insertCart">
+		insert into tb_book_cart  
+			(BC_IDX, USER_ID, B_IDX, REG_DATE, SESSION_ID)  
+ 			values(sc_bc_idx.nextval,#{userId},#{bIdx},sysdate,#{sessionId}) 
+	</insert>
+	
+	<delete id="deleteCart">
+		delete tb_book_cart where bc_idx = #{bcIdx}
+	</delete>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+</mapper>

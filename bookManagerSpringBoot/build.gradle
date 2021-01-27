@@ -1,0 +1,83 @@
+	plugins {
+		id 'org.springframework.boot' version '2.2.9.RELEASE'
+		id 'io.spring.dependency-management' version '1.0.10.RELEASE'
+		id 'com.ewerk.gradle.plugins.querydsl' version "1.0.10"
+		id 'java'
+		id 'war'
+	}
+	
+	group = 'com.kh.bookmanager'
+	version = '0.0.1-SNAPSHOT'
+	sourceCompatibility = '1.8'
+	
+	configurations {
+		compileOnly {
+			extendsFrom annotationProcessor
+		}
+	}
+	
+	//gradle이 필요한 라이브러리를 자동으로 다운로드 하기위해 사용하는 저장소
+	repositories {
+		mavenCentral()
+		flatDir{dir 'src/main/webapp/resources/lib'}
+	}
+	
+	//저장소에서 필요한 라이브러리를 사용하기 위해 dependencies 추가
+	
+	dependencies {
+		implementation 'com.querydsl:querydsl-jpa'
+		compile group: 'com.querydsl', name: 'querydsl-sql', version: '4.3.1'
+		implementation fileTree(dir:'src/main/webapp/resources/lib', include:'*.jar')
+		implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+		implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+		implementation 'org.springframework.boot:spring-boot-starter-mail'
+		implementation 'org.springframework.boot:spring-boot-starter-web'
+		compile('org.springframework.boot:spring-boot-starter-security')
+		
+	    // https://mvnrepository.com/artifact/org.aspectj/aspectjrt
+		compile group: 'org.aspectj', name: 'aspectjrt', version: '1.9.6'
+	    // https://mvnrepository.com/artifact/org.aspectj/aspectjweaver
+		runtime group: 'org.aspectj', name: 'aspectjweaver', version: '1.9.6'	    
+		compileOnly 'org.projectlombok:lombok'
+		annotationProcessor 'org.projectlombok:lombok'		
+		providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+		testImplementation('org.springframework.boot:spring-boot-starter-test') {
+			exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+		}
+		compile('org.apache.tomcat.embed:tomcat-embed-jasper')
+		//compile('javax.servlet:jstl:1.2')
+	}
+	
+	
+	//querydsl 추가 시작
+	//변수 선언
+	def querydslDir = "$buildDir/generated/querydsl"
+	
+	querydsl {
+	    jpa = true
+	    querydslSourcesDir = querydslDir
+	}
+	
+	//source set : 컴파일과 함께 실행되는 소스 그룹
+	sourceSets {
+		//main은 sourceSet을 의미한다. //https://docs.gradle.org/current/javadoc/org/gradle/api/tasks/SourceSet.html
+	   	//java는 소스셋의 자바 소스파일들을 의미하고, srcDir == srcDir()은 소스 디랙토리를 추가하는 메서드이다
+	    //참고 : https://kwonnam.pe.kr/wiki/gradle/java
+	    main.java.srcDir querydslDir
+	}
+	
+	configurations {
+	    querydsl.extendsFrom compileClasspath
+	}
+	
+	compileQuerydsl {
+	    options.annotationProcessorPath = configurations.querydsl
+	}
+	//querydsl 추가 끝
+	//window > show view > other > gradle Tasks 추가
+	//gradle Tasks에서 build > build 를 클릭해 build 실행
+	//프로젝트 새로 고침이후 build/generated/querydsl 폴더 확인
+	//Q-class 생성시 성공
+	test {
+		useJUnitPlatform()
+	}

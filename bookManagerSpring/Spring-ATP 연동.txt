@@ -1,0 +1,36 @@
+ID : testOTP
+password : pClass123456
+
+======================================================================
+
+ATP JDBC 연동 가이드
+https://docs.oracle.com/en/cloud/paas/autonomous-data-warehouse-cloud/user/connect-jdbc-thin-wallet.html#GUID-1640CC02-BF3E-48C2-8FFE-A596614A6A40
+
+ATP JDBC 연동 예제코드
+https://github.com/oracle/oracle-db-examples/blob/master/java/jdbc/ConnectionSamples/DataSourceForJKS.java
+
+ATP JDBC 연동 가이드 & ojdbc8 설치
+https://www.oracle.com/database/technologies/java-connectivity-to-atp.html#prereq
+
+ATP 설명 PDF
+https://objectstorage.us-ashburn-1.oraclecloud.com/n/oraclepartnersas/b/ATPWorkshop/o/ATPLabs.pdf
+
+======================================================================
+
+ATP & 스프링 연동을 위해 필요한 JAR파일
+ojdbc8.jar
+oraclepki.jar
+osdb_cert.jar
+osdt_core.jar
+
+
+스프링 프로퍼티에서 사용하는 키값
+user
+password
+oracle.net.ssl_server_dn_match
+oracle.net.tns_admin
+oracle.net.ssl_version
+javax.net.ssl.keyStore
+javax.net.ssl.keyStorePassword
+javax.net.ssl.trustStore
+javax.net.ssl.trustStorePassword

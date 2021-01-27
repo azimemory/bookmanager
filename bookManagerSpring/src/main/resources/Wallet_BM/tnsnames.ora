@@ -1,0 +1,10 @@
+bm_high = (description= (retry_count=20)(retry_delay=3)(address=(protocol=tcps)(port=1522)(host=adb.ap-seoul-1.oraclecloud.com))(connect_data=(service_name=cwh8azff6xar9se_bm_high.atp.oraclecloud.com))(security=(ssl_server_cert_dn="CN=adb.ap-seoul-1.oraclecloud.com,OU=Oracle ADB SEOUL,O=Oracle Corporation,L=Redwood City,ST=California,C=US")))
+
+bm_low = (description= (retry_count=20)(retry_delay=3)(address=(protocol=tcps)(port=1522)(host=adb.ap-seoul-1.oraclecloud.com))(connect_data=(service_name=cwh8azff6xar9se_bm_low.atp.oraclecloud.com))(security=(ssl_server_cert_dn="CN=adb.ap-seoul-1.oraclecloud.com,OU=Oracle ADB SEOUL,O=Oracle Corporation,L=Redwood City,ST=California,C=US")))
+
+bm_medium = (description= (retry_count=20)(retry_delay=3)(address=(protocol=tcps)(port=1522)(host=adb.ap-seoul-1.oraclecloud.com))(connect_data=(service_name=cwh8azff6xar9se_bm_medium.atp.oraclecloud.com))(security=(ssl_server_cert_dn="CN=adb.ap-seoul-1.oraclecloud.com,OU=Oracle ADB SEOUL,O=Oracle Corporation,L=Redwood City,ST=California,C=US")))
+
+bm_tp = (description= (retry_count=20)(retry_delay=3)(address=(protocol=tcps)(port=1522)(host=adb.ap-seoul-1.oraclecloud.com))(connect_data=(service_name=cwh8azff6xar9se_bm_tp.atp.oraclecloud.com))(security=(ssl_server_cert_dn="CN=adb.ap-seoul-1.oraclecloud.com,OU=Oracle ADB SEOUL,O=Oracle Corporation,L=Redwood City,ST=California,C=US")))
+
+bm_tpurgent = (description= (retry_count=20)(retry_delay=3)(address=(protocol=tcps)(port=1522)(host=adb.ap-seoul-1.oraclecloud.com))(connect_data=(service_name=cwh8azff6xar9se_bm_tpurgent.atp.oraclecloud.com))(security=(ssl_server_cert_dn="CN=adb.ap-seoul-1.oraclecloud.com,OU=Oracle ADB SEOUL,O=Oracle Corporation,L=Redwood City,ST=California,C=US")))
+
