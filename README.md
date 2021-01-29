@@ -3,8 +3,8 @@
 Code Enum의 upload Path에 파일저장   
 tomcat context.xml 파일에    
  
- \ <Resources>   
+ \ '<Resources>   
       <PreResources className="org.apache.catalina.webresources.DirResourceSet" webAppMount="/upload" base="C:\CODE\lecture\resources\upload"/>   
-  </Resources>   \
+  </Resources>'   \
  
  설정 추가해줄 필요가 있음   
