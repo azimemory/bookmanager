@@ -61,7 +61,7 @@ public class JDBCTemplate {
 	public void close(Connection conn) {
 		
 		try {
-			if(conn != null)
+			if(!conn.isClosed() && conn != null)
 			conn.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -74,7 +74,7 @@ public class JDBCTemplate {
 	public void close(Statement stmt) {
 		
 		try {
-			if(stmt != null)
+			if(!stmt.isClosed() && stmt != null)
 			stmt.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -85,7 +85,7 @@ public class JDBCTemplate {
 	public void close(ResultSet rs) {
 		
 		try {
-			if(rs != null)
+			if(!rs.isClosed() && rs != null)
 			rs.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -94,36 +94,18 @@ public class JDBCTemplate {
 	}
 	
 	public void close(ResultSet rs, Statement stmt) {
-		
-		try {
-			if(rs != null)
-			rs.close();
-			if(stmt != null)
-			stmt.close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		close(rs);
+		close(stmt);
 	}
 	
 	public void close(ResultSet rs, Statement stmt, Connection con) {
-		
-		try {
-			if(con != null)
-			con.close();
-			if(rs != null)
-			rs.close();
-			if(stmt != null)
-			stmt.close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		close(rs);
+		close(stmt);
+		close(con);
 	}
 	
 	
 	public void commit(Connection conn) {
-		
 		try {
 			conn.commit();
 		} catch (SQLException e) {
@@ -133,7 +115,6 @@ public class JDBCTemplate {
 	}
 	
 	public void rollback(Connection conn) {
-		
 		try {
 			conn.rollback();
 		} catch (SQLException e) {

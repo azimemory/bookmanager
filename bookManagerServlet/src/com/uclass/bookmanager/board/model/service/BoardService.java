@@ -49,7 +49,7 @@ public class BoardService {
 			}
 			
 			//파일정보리스트를 반환 받음
-			List<FileVo> fileInfoList = (List<FileVo>)boardData.get("fileInfoList");
+			List<FileVo> fileInfoList = (List<FileVo>)boardData.get("fileData");
 			//파일 갯수만큼 돌면서 파일정보를 저장
 			for(FileVo fileInfo : fileInfoList) {
 				if(boardDao.insertFile(conn, fileInfo) == 0) {
@@ -211,7 +211,7 @@ public class BoardService {
 			boardDao.updateBoard(conn,board);
 			
 			//파일정보리스트를 반환 받음
-			List<FileVo> fileInfoList = (List<FileVo>)boardData.get("fileInfoList");
+			List<FileVo> fileInfoList = (List<FileVo>)boardData.get("fileData");
 			//파일 갯수만큼 돌면서 파일정보를 저장
 			if(fileInfoList != null) {
 				for(FileVo fileInfo : fileInfoList) {

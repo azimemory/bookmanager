@@ -28,7 +28,7 @@ public class AuthenticationFilter implements Filter{
 		
 		if(paths[2] != null && (
 				paths[2].equals("rent") 
-				|| paths[2].equals("notice")
+				|| paths[2].equals("board")
 				|| paths[2].equals("mypage")
 				)) {
 			

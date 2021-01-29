@@ -19,7 +19,7 @@
 		<div class="info">
 		<c:forEach items="${data.flist}" var="file">
 		   <button type="button" class="btn_down-file"
-		         onclick="downloadFile('${file.originFileName}','${file.savePath}')">
+		         onclick="downloadFile('${file.originFileName}','${file.renameFileName}','${file.savePath}')">
 		     	  ${file.originFileName}
 		   </button>
 		</c:forEach>
@@ -46,9 +46,10 @@
       location.href = url;
    } 
    
-   function downloadFile(ofname, savePath){
+   function downloadFile(ofname, rfname, savePath){
       location.href = "download.do?"
             +"ofname="+ofname
+            +"&rfname="+rfname
             +"&savePath="+savePath 
      /* location.href = "/bookmanager/resources/upload/"+savePath;  */
   }

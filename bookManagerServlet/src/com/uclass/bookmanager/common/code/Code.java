@@ -9,11 +9,17 @@ package com.uclass.bookmanager.common.code;
  */
 public enum Code {
 	
-	UPLOAD_PATH("C:\\CODE\\lecture\\resources\\upload\\image\\"),  //로컬용 파일업로드 경로
+	UPLOAD_PATH("C:\\CODE\\lecture\\resources\\upload\\"),  //로컬용 파일업로드 경로
     //UPLOAD_PATH("/usr/local/webapps/resources/image/"), //서버용 파일업로드 경로
 	UPLOAD_TYPE_BOARD("board");
-	public final String VALUE;
-	Code(String value){
-		this.VALUE = value;
+	
+	public final String DESC;
+	
+	Code(String desc){
+		this.DESC = desc;
+	}
+	
+	public String toString() {
+		return DESC;
 	}
 }

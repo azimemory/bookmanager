@@ -63,7 +63,7 @@ public class BoardDao {
 			PreparedStatement pstm = null;
 			try {
 				pstm = conn.prepareStatement(sql);
-				pstm.setString(1, Code.UPLOAD_TYPE_BOARD.VALUE);
+				pstm.setString(1, Code.UPLOAD_TYPE_BOARD.DESC);
 				pstm.setString(2, fileInfo.getOriginFileName());
 				pstm.setString(3, fileInfo.getRenameFileName());
 				pstm.setString(4, fileInfo.getSavePath());
@@ -177,7 +177,7 @@ public class BoardDao {
 				result = new ArrayList<FileVo>();
 				pstm = conn.prepareStatement(sql);
 				pstm.setString(1, bdIdx);
-				pstm.setString(2, Code.UPLOAD_TYPE_BOARD.VALUE);
+				pstm.setString(2, Code.UPLOAD_TYPE_BOARD.DESC);
 				rs = pstm.executeQuery();
 				
 				while(rs.next()) {
@@ -249,7 +249,7 @@ public class BoardDao {
 			try {
 				pstm = conn.prepareStatement(sql);
 				pstm.setString(1, bdIdx);
-				pstm.setString(2, Code.UPLOAD_TYPE_BOARD.VALUE);
+				pstm.setString(2, Code.UPLOAD_TYPE_BOARD.DESC);
 				res = pstm.executeUpdate();
 			}finally {
 				jdt.close(pstm);
