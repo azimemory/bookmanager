@@ -16,7 +16,7 @@ import com.uclass.bookmanager.common.code.ErrorCode;
 import com.uclass.bookmanager.common.code.MemberGrade;
 import com.uclass.bookmanager.common.db.JDBCTemplate;
 import com.uclass.bookmanager.common.exception.CustomException;
-import com.uclass.bookmanager.common.util.Paging;
+import com.uclass.bookmanager.common.util.page.Paging;
 
 public class RentBookService {
 	
@@ -37,7 +37,6 @@ public class RentBookService {
 			commandMap.put("paging",paging);
 			commandMap.put("data",rentList);
 		} catch (SQLException e) {
-			jdt.rollback(conn);
 			throw new CustomException(ErrorCode.SR01,e);
 		}finally {
 			jdt.close(conn);
@@ -54,7 +53,6 @@ public class RentBookService {
 		try {
 			result = rdao.selectRenbooktinfo(conn, searchType, rmIdx);
 		} catch (SQLException e) {
-			jdt.rollback(conn);
 			throw new CustomException(ErrorCode.SR01,e);
 		}finally {
 			jdt.close(conn);

@@ -13,7 +13,7 @@ public class MypageService {
 	
 	JDBCTemplate jdt = JDBCTemplate.getInstance();
 	
-	public void updateMember(Member member) throws CustomException {
+	public void updateMember(Member member)  {
 		MypageDao mypageDao = new MypageDao();
 		Connection conn = jdt.getConnection();
 	
@@ -27,7 +27,7 @@ public class MypageService {
 		}
 	}
 	
-	public void updateMemberToLeave(String userId) throws CustomException {
+	public void updateMemberToLeave(String userId)  {
 		MypageDao mypageDao = new MypageDao();
 		Connection conn = jdt.getConnection();
 		

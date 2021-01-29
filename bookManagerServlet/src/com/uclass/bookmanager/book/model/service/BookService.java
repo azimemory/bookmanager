@@ -14,7 +14,7 @@ public class BookService{
 	
 	JDBCTemplate jdt = JDBCTemplate.getInstance();
 	
-	public List<Book> selectBookList(String keyword) throws CustomException {
+	public List<Book> selectBookList(String keyword)  {
 		
 		BookDao bookDao = new BookDao();
 		Connection conn = jdt.getConnection();
@@ -23,7 +23,6 @@ public class BookService{
 		try {
 			result = bookDao.selectBookList(conn, keyword);
 		} catch (SQLException e) {
-			jdt.rollback(conn);
 			throw new CustomException(ErrorCode.SB01, e);
 		}finally {
 			jdt.close(conn);
@@ -31,7 +30,7 @@ public class BookService{
 		return result;
 	}
 	
-	public Book selectBook(String bIdx) throws CustomException {
+	public Book selectBook(String bIdx)  {
 		
 		BookDao bookDao = new BookDao();
 		Connection conn = jdt.getConnection();
@@ -40,7 +39,6 @@ public class BookService{
 		try {
 			book = bookDao.selectBook(conn, bIdx);
 		} catch (SQLException e) {
-			jdt.rollback(conn);
 			throw new CustomException(ErrorCode.SB01, e);
 		}finally {
 			jdt.close(conn);

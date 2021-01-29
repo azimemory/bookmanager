@@ -1,4 +1,4 @@
-package com.uclass.bookmanager.common.util;
+package com.uclass.bookmanager.common.util.page;
 
 /**
  * @PackageName: common.util

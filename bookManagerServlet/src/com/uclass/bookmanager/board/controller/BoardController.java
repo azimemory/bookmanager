@@ -1,6 +1,7 @@
 package com.uclass.bookmanager.board.controller;
 
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,8 +16,8 @@ import com.uclass.bookmanager.board.model.service.BoardService;
 import com.uclass.bookmanager.member.model.vo.Member;
 import com.uclass.bookmanager.common.code.ErrorCode;
 import com.uclass.bookmanager.common.exception.CustomException;
-import com.uclass.bookmanager.common.util.FileUtil;
-import com.uclass.bookmanager.common.util.FileVo;
+import com.uclass.bookmanager.common.util.file.FileUtil;
+import com.uclass.bookmanager.common.util.file.FileVo;
 
 /**
  * Servlet implementation class BoardController
@@ -131,13 +132,13 @@ public class BoardController extends HttpServlet {
 	}
 
 	public void boardDownload(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String originFileName = request.getParameter("ofname");
+		String renameFileName = request.getParameter("rfname");
+		String subPath = request.getParameter("savePath");
 		
-		FileVo fileInfo = new FileVo();
-		fileInfo.setSavePath(request.getParameter("savePath"));
-		fileInfo.setOriginFileName(request.getParameter("ofname"));
-		
-		FileUtil fileUtil = new FileUtil();
-		fileUtil.fileDownload(fileInfo, response);
+		response.setHeader("content-disposition", "attachment; filename="+URLEncoder.encode(originFileName,"utf-8"));
+		request.getRequestDispatcher("/upload/"+subPath+renameFileName)
+		.forward(request, response);
 	}
 	
 	public void boardModify(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

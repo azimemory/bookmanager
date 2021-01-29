@@ -77,20 +77,6 @@
   	<servlet-name>boardServlet</servlet-name>
   	<url-pattern>/board/*</url-pattern>
  </servlet-mapping>
- <servlet>
-  	<servlet-name>errorHandler</servlet-name>
-  	<servlet-class>com.uclass.bookmanager.exception.controller.ErrorHandler</servlet-class>
-  </servlet>
-  <servlet-mapping>
-  	<servlet-name>errorHandler</servlet-name>
-  	<url-pattern>/errorhandler/*</url-pattern>
- </servlet-mapping>
- 
- <!-- 예외처리 페이지  -->
- <error-page>
- 	<exception-type>com.uclass.bookmanager.common.exception.CustomException</exception-type>
- 	<location>/errorhandler/ex</location>
- </error-page>
 
  
  

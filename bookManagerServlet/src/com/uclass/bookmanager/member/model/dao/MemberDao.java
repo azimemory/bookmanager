@@ -146,7 +146,6 @@ public class MemberDao{
 			pstmt.setString(1, userId);
 			pstmt.setString(2, sessionId);
 			res = pstmt.executeUpdate();
-			
 		}finally {
 			jdt.close(pstmt);
 		}

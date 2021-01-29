@@ -12,8 +12,8 @@ import java.util.Map;
 import com.uclass.bookmanager.board.model.vo.Board;
 import com.uclass.bookmanager.common.code.Code;
 import com.uclass.bookmanager.common.db.JDBCTemplate;
-import com.uclass.bookmanager.common.util.FileVo;
-import com.uclass.bookmanager.common.util.Paging;
+import com.uclass.bookmanager.common.util.file.FileVo;
+import com.uclass.bookmanager.common.util.page.Paging;
 
 public class BoardDao {
 	

@@ -12,7 +12,7 @@ import java.util.Map;
 
 import com.uclass.bookmanager.rent.model.vo.Rent;
 import com.uclass.bookmanager.common.db.JDBCTemplate;
-import com.uclass.bookmanager.common.util.Paging;
+import com.uclass.bookmanager.common.util.page.Paging;
 
 public class RentBookDao {
 	

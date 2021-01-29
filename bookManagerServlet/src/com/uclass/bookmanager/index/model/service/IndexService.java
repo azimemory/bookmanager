@@ -16,7 +16,7 @@ public class IndexService {
 	
 	JDBCTemplate jdt = JDBCTemplate.getInstance();
 	
-	public Map<String,List<Book>> selectBooksForIndex() throws CustomException {
+	public Map<String,List<Book>> selectBooksForIndex()  {
 		
 		IndexDao indexDao = new IndexDao();
 		Connection conn = jdt.getConnection();
@@ -31,13 +31,11 @@ public class IndexService {
 			books.put("recentRent",indexDao.selectRecentRent(conn));
 		
 		} catch (SQLException e) {
-			jdt.rollback(conn);
 			throw new CustomException(ErrorCode.SB01,e);
 		}finally {
 			jdt.close(conn);
 		}
 		
-		System.out.println(books);
 		return books;
 	}
 	

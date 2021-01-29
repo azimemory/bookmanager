@@ -1,4 +1,4 @@
-package com.uclass.bookmanager.common.util;
+package com.uclass.bookmanager.common.util.file;
 
 public class FileVo {
 	

@@ -13,22 +13,22 @@ import com.uclass.bookmanager.board.model.vo.Board;
 import com.uclass.bookmanager.common.code.ErrorCode;
 import com.uclass.bookmanager.common.db.JDBCTemplate;
 import com.uclass.bookmanager.common.exception.CustomException;
-import com.uclass.bookmanager.common.util.FileUtil;
-import com.uclass.bookmanager.common.util.FileVo;
-import com.uclass.bookmanager.common.util.Paging;
+import com.uclass.bookmanager.common.util.file.FileUtil;
+import com.uclass.bookmanager.common.util.file.FileVo;
+import com.uclass.bookmanager.common.util.page.Paging;
 
 public class BoardService {
 	
 	JDBCTemplate jdt = JDBCTemplate.getInstance();
 	
-	public void insertBoard(String userId, HttpServletRequest request) throws CustomException{
+	public void insertBoard(String userId, HttpServletRequest request) {
 		
 		Connection conn = jdt.getConnection();
 		BoardDao boardDao = new BoardDao();
 		
 		//게시글 저장을 위한 vo
 		Board board = new Board();
-		Map<String,Object> boardData = null;
+		Map<String, List> boardData = null;
 		
 		try {
 			
@@ -40,8 +40,8 @@ public class BoardService {
 			}
 			
 			board.setUserId(userId);
-			board.setTitle((String)boardData.get("title"));
-			board.setContent((String)boardData.get("content"));
+			board.setTitle(boardData.get("title").get(0).toString());
+			board.setContent(boardData.get("content").get(0).toString());
 			
 			//board 테이블에 게시글 정보를 저장
 			if(boardDao.insertBoard(conn,board) == 0) {
@@ -69,7 +69,7 @@ public class BoardService {
 			//현재 페이지
 			 int currentPage
 			//페이지당 노출할 게시글 수
-			,int cntPerPage) throws CustomException{
+			,int cntPerPage) {
 			
 		BoardDao boardDao = new BoardDao();
 		Connection conn = jdt.getConnection();
@@ -86,7 +86,6 @@ public class BoardService {
 			commandMap.put("paging", p);
 			jdt.commit(conn);
 		} catch (SQLException e) {
-			jdt.rollback(conn);
 			throw new CustomException(ErrorCode.SB11,e);
 		}finally {
 			jdt.close(conn);
@@ -96,7 +95,7 @@ public class BoardService {
 	}
 
 	//게시물 상세
-	public Map<String,Object> selectBoardDetail(String bdIdx) throws CustomException{
+	public Map<String,Object> selectBoardDetail(String bdIdx) {
 		Map<String,Object> commandMap = new HashMap<String, Object>();
 		
 		BoardDao boardDao = new BoardDao();
@@ -114,7 +113,6 @@ public class BoardService {
 			commandMap.put("flist",flist);
 			jdt.commit(conn);
 		} catch (SQLException e) {
-			jdt.rollback(conn);
 			throw new CustomException(ErrorCode.SB11,e);
 		}finally {
 			jdt.close(conn);
@@ -123,7 +121,7 @@ public class BoardService {
 		return commandMap;
 	}
 
-	public void deleteFileWithFIdx(String fIdx, String root) throws CustomException{
+	public void deleteFileWithFIdx(String fIdx, String root) {
 		
 		BoardDao boardDao = new BoardDao();
 		Connection conn = jdt.getConnection();
@@ -156,7 +154,7 @@ public class BoardService {
 		}
 	}
 
-	public void deleteFileWithBoard(String bdIdx) throws CustomException{
+	public void deleteFileWithBoard(String bdIdx) {
 		BoardDao boardDao = new BoardDao();
 		Connection conn = jdt.getConnection();
 		
@@ -183,11 +181,11 @@ public class BoardService {
 		}
 	}
 
-	public void updateBoard(HttpServletRequest request) throws CustomException{
+	public void updateBoard(HttpServletRequest request) {
 		
 		BoardDao boardDao = new BoardDao();
 		Connection conn = jdt.getConnection();
-		Map<String,Object> boardData = null;
+		Map<String, List> boardData = null;
 		
 		//게시글 저장을 위한 vo
 		Board board = new Board();
@@ -196,17 +194,12 @@ public class BoardService {
 			//파일 저장 경로
 			String root = request.getServletContext().getRealPath("/resources/upload/");
 			boardData = new FileUtil().fileUpload(request);
-			board.setBdIdx((String)boardData.get("bdIdx"));
-			board.setTitle((String)boardData.get("title"));
-			board.setContent((String)boardData.get("content"));
+			board.setBdIdx(boardData.get("bdIdx").get(0).toString());
+			board.setTitle(boardData.get("title").get(0).toString());
+			board.setContent(boardData.get("content").get(0).toString());
 			
 			List<String> rmFiles = null;
-			if(boardData.get("rmFiles") instanceof String) {
-				rmFiles = new ArrayList<String>();
-				rmFiles.add((String)boardData.get("rmFiles"));
-			}else {
-				rmFiles = (List)boardData.get("rmFiles");
-			}
+			rmFiles = (List)boardData.get("rmFiles");
 			
 			if(rmFiles != null) {
 				for(String fIdx : rmFiles) {
@@ -238,7 +231,7 @@ public class BoardService {
 		}
 	}
 
-	public void deleteBoard(String bdIdx) throws CustomException{
+	public void deleteBoard(String bdIdx) {
 		
 		BoardDao boardDao = new BoardDao();
 		Connection conn = jdt.getConnection();

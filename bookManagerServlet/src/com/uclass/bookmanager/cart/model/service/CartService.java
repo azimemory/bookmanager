@@ -15,7 +15,7 @@ public class CartService {
 	
 	JDBCTemplate jdt = JDBCTemplate.getInstance();
 	
-	public List<Map<String,Object>> selectCart(String userId, String sessionId) throws CustomException {
+	public List<Map<String,Object>> selectCart(String userId, String sessionId)  {
 		
 		List<Map<String,Object>> cartList = null;
 		Connection conn = null;
@@ -24,10 +24,7 @@ public class CartService {
 		try {
 			conn = jdt.getConnection();
 			cartList = cartDao.selectCart(conn, userId, sessionId);
-			System.out.println("cartList : " + cartList);
-			
 		} catch (SQLException e) {
-			jdt.rollback(conn);
 			throw new CustomException(ErrorCode.SC01,e);
 		}finally {
 			jdt.close(conn);
@@ -36,7 +33,7 @@ public class CartService {
 		return cartList;
 	}
 	
-	public void insertCart(String bIdx, String userId, String sessionId) throws CustomException  {
+	public void insertCart(String bIdx, String userId, String sessionId)   {
 		
 		Connection conn = null;
 		CartDao cartDao = new CartDao();
@@ -61,8 +58,7 @@ public class CartService {
 		}
 	}
 	
-	public void deleteCart(String bcIdx) throws CustomException {
-		
+	public void deleteCart(String bcIdx)  {
 		Connection conn = null;
 		CartDao cartDao = new CartDao();
 		

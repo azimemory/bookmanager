@@ -29,7 +29,6 @@ public class MemberService{
 				throw new CustomException(ErrorCode.SM04);
 			}
 		} catch (SQLException e) {
-			jdt.rollback(conn);
 			throw new CustomException(ErrorCode.SM01,e);
 		}finally {
 			jdt.close(conn);
@@ -45,7 +44,6 @@ public class MemberService{
 		try {
 			res = memberDao.selectRentCount(conn, userId);
 		} catch (SQLException e) {
-			jdt.rollback(conn);
 			throw new CustomException(ErrorCode.SR01,e);
 		}finally {
 			jdt.close(conn);
@@ -63,7 +61,6 @@ public class MemberService{
 				throw new CustomException(ErrorCode.SM02);
 			};
 		} catch (SQLException e) {
-			jdt.rollback(conn);
 			throw new CustomException(ErrorCode.SM01,e);
 		}finally {
 			jdt.close(conn);
