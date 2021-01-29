@@ -18,10 +18,10 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import com.kh.bookmanager.board.model.service.BoardService;
 import com.kh.bookmanager.board.model.vo.Board;
-import com.kh.bookmanager.common.code.Code;
-import com.kh.bookmanager.common.code.ErrorCode;
-import com.kh.bookmanager.common.exception.CustomException;
 import com.kh.bookmanager.member.model.vo.Member;
+import com.kh.common.code.Code;
+import com.kh.common.code.ErrorCode;
+import com.kh.common.exception.CustomException;
 
 @Controller
 public class BoardController {
@@ -112,7 +112,7 @@ public class BoardController {
 			String savePath
 			) {
 		
-		String readFolder = Code.UPLOAD_PATH.VALUE;				
+		String readFolder = Code.UPLOAD_PATH.DESC;				
 		//FileSystemResource
 		FileSystemResource downFile 
 			= new FileSystemResource(readFolder + savePath);

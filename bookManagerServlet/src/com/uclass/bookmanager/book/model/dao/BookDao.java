@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.uclass.bookmanager.book.model.vo.Book;
-import com.uclass.bookmanager.common.db.JDBCTemplate;
+import com.uclass.common.db.JDBCTemplate;
 
 public class BookDao{
 	

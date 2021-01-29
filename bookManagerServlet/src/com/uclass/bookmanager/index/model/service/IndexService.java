@@ -8,9 +8,9 @@ import java.util.Map;
 
 import com.uclass.bookmanager.book.model.vo.Book;
 import com.uclass.bookmanager.index.model.dao.IndexDao;
-import com.uclass.bookmanager.common.code.ErrorCode;
-import com.uclass.bookmanager.common.db.JDBCTemplate;
-import com.uclass.bookmanager.common.exception.CustomException;
+import com.uclass.common.code.ErrorCode;
+import com.uclass.common.db.JDBCTemplate;
+import com.uclass.common.exception.CustomException;
 
 public class IndexService {
 	

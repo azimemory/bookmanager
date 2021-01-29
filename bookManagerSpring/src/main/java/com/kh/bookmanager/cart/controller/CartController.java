@@ -14,9 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kh.bookmanager.cart.model.service.CartService;
 import com.kh.bookmanager.member.model.vo.Member;
-
-import com.kh.bookmanager.common.exception.CustomException;
-import com.kh.bookmanager.common.exception.CustomException;
+import com.kh.common.exception.CustomException;
 
 @Controller
 @RequestMapping("cart/")

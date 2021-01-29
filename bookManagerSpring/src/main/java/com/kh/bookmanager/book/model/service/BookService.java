@@ -4,8 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.kh.bookmanager.book.model.vo.Book;
-
-import com.kh.bookmanager.common.exception.CustomException;
+import com.kh.common.exception.CustomException;
 
 public interface BookService {
 	

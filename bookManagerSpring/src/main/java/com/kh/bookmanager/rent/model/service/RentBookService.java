@@ -3,9 +3,7 @@ package com.kh.bookmanager.rent.model.service;
 import java.util.List;
 import java.util.Map;
 import com.kh.bookmanager.rent.model.vo.Rent;
-
-import com.kh.bookmanager.common.exception.CustomException;
-import com.kh.bookmanager.common.exception.CustomException;
+import com.kh.common.exception.CustomException;
 
 public interface RentBookService {
 	

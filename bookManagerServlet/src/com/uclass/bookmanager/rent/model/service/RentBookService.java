@@ -12,11 +12,11 @@ import com.uclass.bookmanager.book.model.service.BookService;
 import com.uclass.bookmanager.book.model.vo.Book;
 import com.uclass.bookmanager.rent.model.dao.RentBookDao;
 import com.uclass.bookmanager.rent.model.vo.Rent;
-import com.uclass.bookmanager.common.code.ErrorCode;
-import com.uclass.bookmanager.common.code.MemberGrade;
-import com.uclass.bookmanager.common.db.JDBCTemplate;
-import com.uclass.bookmanager.common.exception.CustomException;
-import com.uclass.bookmanager.common.util.page.Paging;
+import com.uclass.common.code.ErrorCode;
+import com.uclass.common.code.MemberGrade;
+import com.uclass.common.db.JDBCTemplate;
+import com.uclass.common.exception.CustomException;
+import com.uclass.common.util.page.Paging;
 
 public class RentBookService {
 	

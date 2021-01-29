@@ -5,8 +5,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import com.kh.bookmanager.board.model.vo.Board;
-import com.kh.bookmanager.common.util.FileVo;
-import com.kh.bookmanager.common.util.Paging;
+import com.kh.common.util.FileVo;
+import com.kh.common.util.Paging;
 
 
 @Repository

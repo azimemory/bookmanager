@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import com.uclass.bookmanager.member.model.vo.Member;
-import com.uclass.bookmanager.common.db.JDBCTemplate;
+import com.uclass.common.db.JDBCTemplate;
 
 public class MemberDao{
 	

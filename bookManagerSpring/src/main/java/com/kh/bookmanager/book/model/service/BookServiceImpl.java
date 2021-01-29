@@ -7,9 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.kh.bookmanager.book.model.dao.BookDao;
 import com.kh.bookmanager.book.model.vo.Book;
-
-import com.kh.bookmanager.common.code.ErrorCode;
-import com.kh.bookmanager.common.exception.CustomException;
+import com.kh.common.code.ErrorCode;
+import com.kh.common.exception.CustomException;
 
 @Service
 public class BookServiceImpl implements BookService{

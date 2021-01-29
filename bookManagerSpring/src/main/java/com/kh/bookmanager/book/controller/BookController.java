@@ -11,8 +11,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.bookmanager.book.model.service.BookService;
 import com.kh.bookmanager.book.model.vo.Book;
-import com.kh.bookmanager.common.code.ErrorCode;
-import com.kh.bookmanager.common.exception.CustomException;
+import com.kh.common.code.ErrorCode;
+import com.kh.common.exception.CustomException;
 
 @Controller
 @RequestMapping("book/")

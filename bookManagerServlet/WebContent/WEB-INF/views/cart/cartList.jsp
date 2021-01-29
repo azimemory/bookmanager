@@ -92,7 +92,6 @@
 		var xhr = new XMLHttpRequest();
 		var url = '<%=request.getContextPath() %>/cart/removeCart.do?bcIdx=' + bcIdx;
 		xhr.open('GET',url);
-		xhr.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
 		xhr.send();
 		xhr.addEventListener('load', function(){
 		console.dir(xhr);	

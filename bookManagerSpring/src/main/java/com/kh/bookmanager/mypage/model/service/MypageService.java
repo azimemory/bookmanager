@@ -1,7 +1,7 @@
 package com.kh.bookmanager.mypage.model.service;
 
 import com.kh.bookmanager.member.model.vo.Member;
-import com.kh.bookmanager.common.exception.CustomException;
+import com.kh.common.exception.CustomException;
 
 public interface MypageService {
 

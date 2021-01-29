@@ -5,9 +5,9 @@ import java.sql.SQLException;
 
 import com.uclass.bookmanager.member.model.vo.Member;
 import com.uclass.bookmanager.mypage.model.dao.MypageDao;
-import com.uclass.bookmanager.common.code.ErrorCode;
-import com.uclass.bookmanager.common.db.JDBCTemplate;
-import com.uclass.bookmanager.common.exception.CustomException;
+import com.uclass.common.code.ErrorCode;
+import com.uclass.common.db.JDBCTemplate;
+import com.uclass.common.exception.CustomException;
 
 public class MypageService {
 	

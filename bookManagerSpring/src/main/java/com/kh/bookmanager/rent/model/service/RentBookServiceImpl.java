@@ -11,13 +11,11 @@ import com.kh.bookmanager.book.model.dao.BookDao;
 import com.kh.bookmanager.book.model.vo.Book;
 import com.kh.bookmanager.rent.model.dao.RentBookDao;
 import com.kh.bookmanager.rent.model.vo.Rent;
-
-import com.kh.bookmanager.common.code.ErrorCode;
-import com.kh.bookmanager.common.code.MemberGrade;
-import com.kh.bookmanager.common.code.Code;
-import com.kh.bookmanager.common.exception.CustomException;
-import com.kh.bookmanager.common.exception.CustomException;
-import com.kh.bookmanager.common.util.Paging;
+import com.kh.common.code.Code;
+import com.kh.common.code.ErrorCode;
+import com.kh.common.code.MemberGrade;
+import com.kh.common.exception.CustomException;
+import com.kh.common.util.Paging;
 
 @Service
 public class RentBookServiceImpl implements RentBookService{

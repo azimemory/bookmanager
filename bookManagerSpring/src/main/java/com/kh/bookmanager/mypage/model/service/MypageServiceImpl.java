@@ -11,9 +11,8 @@ import org.springframework.stereotype.Service;
 
 import com.kh.bookmanager.member.model.vo.Member;
 import com.kh.bookmanager.mypage.model.dao.MypageDao;
-
-import com.kh.bookmanager.common.code.ErrorCode;
-import com.kh.bookmanager.common.exception.CustomException;
+import com.kh.common.code.ErrorCode;
+import com.kh.common.exception.CustomException;
 
 @Service
 public class MypageServiceImpl implements MypageService{

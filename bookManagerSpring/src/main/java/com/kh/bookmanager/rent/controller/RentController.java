@@ -20,10 +20,8 @@ import com.kh.bookmanager.book.model.vo.Book;
 import com.kh.bookmanager.member.model.vo.Member;
 import com.kh.bookmanager.rent.model.service.RentBookService;
 import com.kh.bookmanager.rent.model.vo.Rent;
-
-import com.kh.bookmanager.common.code.ErrorCode;
-import com.kh.bookmanager.common.exception.CustomException;
-import com.kh.bookmanager.common.exception.CustomException;
+import com.kh.common.code.ErrorCode;
+import com.kh.common.exception.CustomException;
 
 @Controller
 @RequestMapping("rent/")	

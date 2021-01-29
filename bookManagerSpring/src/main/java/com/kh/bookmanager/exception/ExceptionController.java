@@ -14,8 +14,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import com.kh.bookmanager.common.exception.CustomException;
-import com.kh.bookmanager.common.exception.CustomException;
+
+import com.kh.common.exception.CustomException;
 
 //ControllerAdvice : 지정한 패키지 내의 모든 클래스가
 //@ExceptionHandler 어노테이션이 지정된 

@@ -3,8 +3,7 @@ package com.kh.bookmanager.member.model.service;
 import java.util.Map;
 
 import com.kh.bookmanager.member.model.vo.Member;
-import com.kh.bookmanager.common.exception.CustomException;
-import com.kh.bookmanager.common.exception.CustomException;
+import com.kh.common.exception.CustomException;
 
 public interface MemberService {
 

@@ -20,9 +20,8 @@ import com.uclass.bookmanager.book.model.vo.Book;
 import com.uclass.bookmanager.member.model.vo.Member;
 import com.uclass.bookmanager.rent.model.service.RentBookService;
 import com.uclass.bookmanager.rent.model.vo.Rent;
-import com.uclass.bookmanager.common.code.ErrorCode;
-import com.uclass.bookmanager.common.exception.CustomException;
-import com.uclass.bookmanager.common.exception.CustomException;
+import com.uclass.common.code.ErrorCode;
+import com.uclass.common.exception.CustomException;
 
 public class RentController extends HttpServlet {
 	private static final long serialVersionUID = 1L;

@@ -6,9 +6,9 @@ import java.util.List;
 
 import com.uclass.bookmanager.book.model.dao.BookDao;
 import com.uclass.bookmanager.book.model.vo.Book;
-import com.uclass.bookmanager.common.code.ErrorCode;
-import com.uclass.bookmanager.common.db.JDBCTemplate;
-import com.uclass.bookmanager.common.exception.CustomException;
+import com.uclass.common.code.ErrorCode;
+import com.uclass.common.db.JDBCTemplate;
+import com.uclass.common.exception.CustomException;
 
 public class BookService{
 	

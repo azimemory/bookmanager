@@ -10,12 +10,12 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import com.uclass.bookmanager.board.model.dao.BoardDao;
 import com.uclass.bookmanager.board.model.vo.Board;
-import com.uclass.bookmanager.common.code.ErrorCode;
-import com.uclass.bookmanager.common.db.JDBCTemplate;
-import com.uclass.bookmanager.common.exception.CustomException;
-import com.uclass.bookmanager.common.util.file.FileUtil;
-import com.uclass.bookmanager.common.util.file.FileVo;
-import com.uclass.bookmanager.common.util.page.Paging;
+import com.uclass.common.code.ErrorCode;
+import com.uclass.common.db.JDBCTemplate;
+import com.uclass.common.exception.CustomException;
+import com.uclass.common.util.file.FileUtil;
+import com.uclass.common.util.file.FileVo;
+import com.uclass.common.util.page.Paging;
 
 public class BoardService {
 	

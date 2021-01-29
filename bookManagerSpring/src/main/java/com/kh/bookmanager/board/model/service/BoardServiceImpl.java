@@ -11,12 +11,12 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.bookmanager.board.model.dao.BoardDao;
 import com.kh.bookmanager.board.model.vo.Board;
-import com.kh.bookmanager.common.code.Code;
-import com.kh.bookmanager.common.code.ErrorCode;
-import com.kh.bookmanager.common.exception.CustomException;
-import com.kh.bookmanager.common.util.FileUtil;
-import com.kh.bookmanager.common.util.FileVo;
-import com.kh.bookmanager.common.util.Paging;
+import com.kh.common.code.Code;
+import com.kh.common.code.ErrorCode;
+import com.kh.common.exception.CustomException;
+import com.kh.common.util.FileUtil;
+import com.kh.common.util.FileVo;
+import com.kh.common.util.Paging;
 
 @Service
 public class BoardServiceImpl implements BoardService{
@@ -45,7 +45,7 @@ public class BoardServiceImpl implements BoardService{
 			//파일업로드를 위해 FileUtil.fileUpload() 호출
 			List<FileVo> filedata = new FileUtil().fileUpload(files);
 			for(FileVo f : filedata) {
-				f.setType(Code.UPLOAD_TYPE_BOARD.VALUE);
+				f.setType(Code.UPLOAD_TYPE_BOARD.DESC);
 				if(boardDao.insertFile(f) == 0) {
 					throw new CustomException(ErrorCode.IF01);
 				};
@@ -110,7 +110,7 @@ public class BoardServiceImpl implements BoardService{
 		//저장경로를 fileUtil.deletFile 메서드의 매개변수로 넘겨서
 		//해당 파일을 삭제한다.
 		FileUtil fileUtil = new FileUtil();
-		fileUtil.deleteFile(Code.UPLOAD_PATH.VALUE + fileData.getSavePath());
+		fileUtil.deleteFile(Code.UPLOAD_PATH.DESC + fileData.getSavePath());
 		//파일테이블에서 파일정보를 삭제한다.
 		if(boardDao.deleteFileByFIdx(fIdx) == 0) {
 			throw new CustomException(ErrorCode.DF01);
@@ -131,7 +131,7 @@ public class BoardServiceImpl implements BoardService{
 				= new FileUtil().fileUpload(files);
 			
 			for(FileVo fileInfo : filedata) {
-				fileInfo.setType(Code.UPLOAD_TYPE_BOARD.VALUE);
+				fileInfo.setType(Code.UPLOAD_TYPE_BOARD.DESC);
 				fileInfo.setTypeIdx(board.getBdIdx());
 				boardDao.insertFile(fileInfo);
 			}

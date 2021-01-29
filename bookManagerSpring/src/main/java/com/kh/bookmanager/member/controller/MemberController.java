@@ -16,9 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.bookmanager.member.model.service.MemberService;
 import com.kh.bookmanager.member.model.vo.Member;
-
-import com.kh.bookmanager.common.exception.CustomException;
-import com.kh.bookmanager.common.exception.CustomException;
+import com.kh.common.exception.CustomException;
 
 //MemberController를 bean으로 등록
 

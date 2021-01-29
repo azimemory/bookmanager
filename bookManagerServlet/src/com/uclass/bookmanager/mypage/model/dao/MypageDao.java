@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.uclass.bookmanager.member.model.vo.Member;
-import com.uclass.bookmanager.common.db.JDBCTemplate;
+import com.uclass.common.db.JDBCTemplate;
 
 public class MypageDao {
 	

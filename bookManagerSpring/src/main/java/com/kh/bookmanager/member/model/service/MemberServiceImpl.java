@@ -13,10 +13,8 @@ import org.springframework.stereotype.Service;
 
 import com.kh.bookmanager.member.model.dao.MemberDao;
 import com.kh.bookmanager.member.model.vo.Member;
-
-import com.kh.bookmanager.common.code.ErrorCode;
-import com.kh.bookmanager.common.exception.CustomException;
-import com.kh.bookmanager.common.exception.CustomException;
+import com.kh.common.code.ErrorCode;
+import com.kh.common.exception.CustomException;
 
 @Service
 public class MemberServiceImpl implements MemberService{

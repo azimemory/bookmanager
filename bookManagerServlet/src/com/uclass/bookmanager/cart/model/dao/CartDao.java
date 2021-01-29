@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.uclass.bookmanager.common.db.JDBCTemplate;
+import com.uclass.common.db.JDBCTemplate;
 
 public class CartDao {
 	

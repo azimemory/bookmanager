@@ -9,8 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.kh.bookmanager.member.model.vo.Member;
 import com.kh.bookmanager.mypage.model.service.MypageService;
-
-import com.kh.bookmanager.common.exception.CustomException;
+import com.kh.common.exception.CustomException;
 
 @Controller
 @RequestMapping("/mypage")

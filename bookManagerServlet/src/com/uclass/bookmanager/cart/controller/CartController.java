@@ -15,8 +15,8 @@ import javax.servlet.http.HttpSession;
 
 import com.uclass.bookmanager.cart.model.service.CartService;
 import com.uclass.bookmanager.member.model.vo.Member;
-import com.uclass.bookmanager.common.code.ErrorCode;
-import com.uclass.bookmanager.common.exception.CustomException;
+import com.uclass.common.code.ErrorCode;
+import com.uclass.common.exception.CustomException;
 
 /**
  * Servlet implementation class CartController

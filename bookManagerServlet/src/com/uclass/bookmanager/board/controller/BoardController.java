@@ -14,10 +14,10 @@ import javax.servlet.http.HttpSession;
 
 import com.uclass.bookmanager.board.model.service.BoardService;
 import com.uclass.bookmanager.member.model.vo.Member;
-import com.uclass.bookmanager.common.code.ErrorCode;
-import com.uclass.bookmanager.common.exception.CustomException;
-import com.uclass.bookmanager.common.util.file.FileUtil;
-import com.uclass.bookmanager.common.util.file.FileVo;
+import com.uclass.common.code.ErrorCode;
+import com.uclass.common.exception.CustomException;
+import com.uclass.common.util.file.FileUtil;
+import com.uclass.common.util.file.FileVo;
 
 /**
  * Servlet implementation class BoardController
