@@ -1,5 +1,4 @@
 --1. 시퀀스 삭제 및 생성
-
 DROP SEQUENCE SC_BK_IDX;
 DROP SEQUENCE SC_RM_IDX;
 DROP SEQUENCE SC_RB_IDX;
@@ -32,7 +31,7 @@ START WITH 100000;
 SELECT * FROM USER_SEQUENCES;
 
 --2. 회원더미데이터 입력
-INSERT INTO MEMBER VALUES('CLASS','123ABC!@3','aaa@aaa.com','ME00','010-0000-0000',SYSDATE, sysdate, 0);
+INSERT INTO MEMBER VALUES('UCLASS','123ABC!@3','aaa@aaa.com','ME00','010-0000-0000',SYSDATE, sysdate, 0);
   
 --3. 도서 더미데이터 입력
 INSERT INTO book
@@ -104,7 +103,7 @@ END;
 BEGIN
     SP_RENT_INSERT(100000);
 END;  
-
+/
   SELECT * FROM rent_master;
   SELECT * FROM BOOK;
   SELECT * FROM RENT_BOOK;
@@ -122,7 +121,6 @@ P_RB_IDX IN RENT_BOOK.rb_idx%type
 IS
 --도서번호 변수 선언
 V_bk_idx BOOK.bk_idx%TYPE;
-
 BEGIN
     --도서번호 변수에 대출 중인 도서의 도서번호를 초기화
     SELECT bk_idx 
@@ -134,7 +132,7 @@ BEGIN
 	RENT_BOOK
 	SET STATE = 'RE01'
 	,RETURN_DATE = RETURN_DATE + 7
-	,EXTENTION_CNT = EXTENTION_CNT + 1
+	,EXTENSION_CNT = EXTENSION_CNT + 1
 	WHERE rb_idx = P_RB_IDX;   
 
      --히스토리 테이블에 데이터 추가
@@ -227,11 +225,11 @@ END;
 --연체 테스트를 위한 반납일자 수정
 UPDATE RENT_BOOK
 SET RETURN_DATE = SYSDATE - 1
-WHERE RB_IDX = 100000
+WHERE RB_IDX = 100000;
 
 --연체/반납 테스트
 BEGIN
-    SP_RENT_RETURN (100000, 100000, 'UCLASS');
+    SP_RENT_RETURN (100000);
 END;
 /
   
@@ -240,9 +238,3 @@ SELECT * FROM BOOK;
 SELECT * FROM RENT_BOOK;
 SELECT * FROM MEMBER;
 SELECT * FROM RENT_HISTORY;  
-
-
-
-
-
-
