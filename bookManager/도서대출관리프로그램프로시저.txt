@@ -31,7 +31,7 @@ START WITH 100000;
 SELECT * FROM USER_SEQUENCES;
 
 --2. 회원더미데이터 입력
-INSERT INTO MEMBER VALUES('UCLASS','123ABC!@3','aaa@aaa.com','ME00','010-0000-0000',SYSDATE, sysdate, 0);
+INSERT INTO MEMBER VALUES('DEV','123ABC!@3','aaa@aaa.com','ME00','010-0000-0000',SYSDATE, sysdate, 0);
   
 --3. 도서 더미데이터 입력
 INSERT INTO book
@@ -58,46 +58,44 @@ insert into rent_master values(sc_rm_idx.nextval,'UCLASS',SYSDATE,0,'비행운',
   SELECT * FROM RENT_BOOK;
   SELECT * FROM MEMBER;
   SELECT * FROM RENT_HISTORY;  
+  
+--테이블타입 생성하기
+CREATE OR REPLACE TYPE BK_IDXS IS TABLE OF VARCHAR2(30 CHAR);
 
 --5. 대출정보추가 프로시저 생성
-create or replace PROCEDURE SP_RENT_INSERT(
-	--대출할 도서번호
-	P_BK_IDX BOOK.BK_IDX%TYPE
-)
+create or replace PROCEDURE SP_RENT_INSERT
+(V_BK_IDX BOOK.BK_IDX%TYPE)
 IS
-	V_RM_IDX RENT_MASTER.RM_IDX%TYPE;
-	V_USER_ID MEMBER.user_ID%TYPE;
+    V_RM_IDX RENT_MASTER.RM_IDX%TYPE;
 BEGIN
+    --1. RENT_BOOK 테이블에 데이터 입력
+    --      데이터를 입력하기 위해 현재 RM_IDX의 기본키값을 구한다.
     V_RM_IDX := SC_RM_IDX.CURRVAL;
-    
-    SELECT USER_ID 
-    INTO V_USER_ID 
-    FROM RENT_MASTER WHERE RM_IDX = V_RM_IDX;
-    
-    --대출가능일자 수정
-    UPDATE MEMBER SET rentable_DATE = SYSDATE
-    WHERE user_ID = V_USER_ID;
+    INSERT INTO RENT_BOOK(RB_IDX,RM_IDX,BK_IDX)
+    VALUES(SC_RB_IDX.NEXTVAL,V_RM_IDX,V_BK_IDX);
 
-    --RENT_BOOK 테이블 입력
-    INSERT INTO RENT_BOOK
-    VALUES(SC_RB_IDX.NEXTVAL,SC_RM_IDX.CURRVAL    
-    ,P_BK_IDX, SYSDATE, 'RE00'
-    --char를 DATE로 바꿔줄때 형식을 지정하지 않으면 운영체제가 바뀔 경우
-    --즉 배포환경에서 에러가 발생하게 된다.
-    --운영체제마다 기본값으로 지정되는 형식이 다르기 때문.
-    ,TO_DATE(TO_CHAR(SYSDATE+7,'YYYY/MM/DD'),'YYYY/MM/DD'),0);
-
-    --RENT_HISTORY 테이블 입력
+    --2. RENT_HISTORY 테이블에 데이터를 입력
     INSERT INTO RENT_HISTORY
-    VALUES(SC_RH_IDX.NEXTVAL, SC_RM_IDX.CURRVAL
-    , SC_RB_IDX.CURRVAL,P_BK_IDX,SYSDATE,'RE00');
+    VALUES(SC_RH_IDX.NEXTVAL, V_RM_IDX,SC_RB_IDX.CURRVAL
+          ,V_BK_IDX, SYSDATE, 'RE00');
 
-    --BOOK 테이블 도서재고 차감, 대출횟수 증가
-    UPDATE BOOK B SET BOOK_AMT = BOOK_AMT - 1, rent_Cnt=rent_Cnt +1
-    WHERE bk_Idx = P_BK_IDX;
+    --3. BOOK테이블에 도서재고를 차감, 대출 횟수 증가
+    UPDATE BOOK 
+    SET BOOK_AMT = BOOK_AMT-1
+    , RENT_CNT = RENT_CNT +1
+    WHERE BK_IDX = V_BK_IDX;
 END;
 /
 
+--프로시저 
+DECLARE    
+    BK_IDX_ARR BK_IDXS;    
+BEGIN
+    BK_IDX_ARR := BK_IDXS('100000','100001','100002');  
+    DBMS_OUTPUT.PUT_LINE(BK_IDX_ARR(1));
+    SP_RENT_INSERT('DEV','비행운 외 2권',3,BK_IDX_ARR);
+END;
+/
 
 --프로시저 테스트
 BEGIN
